@@ -1,10 +1,8 @@
 import express from "express";
+import carRouter from "./routes/carRouter.mjs";
 
 const app = express();
 app.use(express.json());
 
-app.get("/users", (req, res) => {
-  res.send("hello from server");
-});
-
+app.use("/api/v1/cars", carRouter);
 export default app;
