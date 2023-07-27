@@ -7,7 +7,7 @@ const uri = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
-const client = new MongoClient(uri);
+export const client = new MongoClient(uri);
 const dbName = "cars";
 export let db = null;
 
