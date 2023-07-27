@@ -3,6 +3,6 @@ import { getAllCars } from "../controllers/carController.mjs";
 
 const router = express.Router();
 
-router.route("/").get(getAllCars);
+router.get("/", getAllCars);
 
 export default router;

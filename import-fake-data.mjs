@@ -57,6 +57,17 @@ function generateDeal(carId) {
   };
 }
 
+function generateSoldVechile(carId) {
+  return {
+    vehicle_id: faker.string.uuid(),
+    car_id: carId,
+    vehicle_info: {
+      sold_price: faker.commerce.price({ min: 5000, max: 30000 }),
+      sale_date: faker.date.past(),
+    },
+  };
+}
+
 async function insertDummyData() {
   try {
     await connectToMongoDB();
@@ -85,10 +96,13 @@ async function insertDummyData() {
 
     //deals
     const dealCollection = db.collection("dealCollection");
-    for (const car of cars) {
-      const deal = generateDeal(car.car_id);
-      await dealCollection.insertOne(deal);
-    }
+    const deal = cars.map((car) => generateDeal(car.car_id));
+    await dealCollection.insertMany(deal);
+
+    //sold vechicles
+    const soldVehicleCollection = db.collection("soldVehicleCollection");
+    const soldVehicles = cars.map((car) => generateSoldVechile(car.car_id));
+    await soldVehicleCollection.insertMany(soldVehicles);
 
     console.log("Dummy data inserted successfully.");
   } catch (error) {
@@ -115,6 +129,10 @@ async function deleteDummyData() {
     //deals
     const dealCollection = db.collection("dealCollection");
     await dealCollection.deleteMany({});
+
+    //sold vechicles
+    const soldVehicleCollection = db.collection("soldVehicleCollection");
+    await soldVehicleCollection.deleteMany({});
 
     console.log("Dummy data deleted successfully.");
   } catch (error) {
