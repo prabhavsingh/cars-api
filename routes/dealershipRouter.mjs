@@ -1,11 +1,13 @@
 import express from "express";
-import { getAllCarsInDealership } from "../controllers/dealershipController.mjs";
+import {
+  getAllCarsInDealership,
+  getCarSoldByDealership,
+} from "../controllers/dealershipController.mjs";
 
 const router = express.Router();
 
-router
-  .route("/:dealershipId")
-  .get(getAllCarsInDealership)
-  .get(createCarToDealership);
+router.route("/:dealershipId/cars").get(getAllCarsInDealership);
+
+router.route("/:dealershipId/sold-cars").get(getCarSoldByDealership);
 
 export default router;

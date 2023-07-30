@@ -9,7 +9,7 @@ const randomInsert = (name_info, value, indices) => {
     .map((el, i) => {
       if (Math.floor(Math.random() * 2) === 1 && !indices.includes(i)) {
         indices.push(i);
-        return { [name_info]: el._id.toString() };
+        return { [name_info]: el._id };
       }
       return null;
     })
@@ -34,7 +34,7 @@ function generateDealership(cars, deal, soldVehicles) {
   const dealership_cars = randomInsert("car_id", cars, carIndices);
   const dealership_deals = randomInsert("deal_id", deal, dealIndices);
   const dealership_soldcars = randomInsert(
-    "vechile_id",
+    "vehicle_id",
     soldVehicles,
     vechileIndices
   );
