@@ -1,20 +1,12 @@
 import { db } from "../db.mjs";
+import catchAsync from "../utils/catchAsync.mjs";
 
-export const getAllCars = async (req, res) => {
-  try {
-    const cars = await db.collection("carCollection").find().toArray();
-    res.status(200).json({
-      status: "success",
-      data: {
-        cars,
-      },
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: "fatl",
-      data: {
-        error,
-      },
-    });
-  }
-};
+export const getAllCars = catchAsync(async (req, res) => {
+  const cars = await db.collection("carCollection").find().toArray();
+  res.status(200).json({
+    status: "success",
+    data: {
+      cars,
+    },
+  });
+});
